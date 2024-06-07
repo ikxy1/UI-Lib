@@ -213,11 +213,11 @@ function Library:Create(xHubName,xGameName)
         Tab.ChildRemoved:Connect(Size)
 
         if xVisible then 
-            TabButton.BackgroundColor3 = Color3.fromRGB(55, 74, 251)
-            TabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+            TabButton.BackgroundColor3 = Color3.fromRGB(31, 30, 46)
+            TabButton.TextColor3 = Color3.fromRGB(160, 32, 240)
         else 
-            TabButton.BackgroundColor3 = Color3.fromRGB(40, 42, 60)
-            TabButton.TextColor3 = Color3.fromRGB(190, 190, 190)
+            TabButton.BackgroundColor3 = Color3.fromRGB(31, 30, 46)
+            TabButton.TextColor3 = Color3.fromRGB(160, 32, 240)
         end
 
         TabButton.MouseButton1Down:Connect(function()
