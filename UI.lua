@@ -105,7 +105,7 @@ function Library:Create(xHubName,xGameName)
 
     HubName.Name = "HubName"
     HubName.Parent = Sidebar
-    HubName.BackgroundColor3 = Color3.fromRGB(75, 75, 75)
+    HubName.BackgroundColor3 = Color3.fromRGB(31, 30 ,46)
     HubName.BackgroundTransparency = 1.000
     HubName.BorderSizePixel = 0
     HubName.Position = UDim2.new(0, 0, 0.024324324, 0)
@@ -117,14 +117,14 @@ function Library:Create(xHubName,xGameName)
 
     Line.Name = "Line"
     Line.Parent = Sidebar
-    Line.BackgroundColor3 = Color3.fromRGB(75, 75, 75)
+    Line.BackgroundColor3 = Color3.fromRGB(31, 30 ,46)
     Line.BorderSizePixel = 0
     Line.Position = UDim2.new(0.0642857179, 0, 0.148648649, 0)
     Line.Size = UDim2.new(0, 121, 0, 2)
 
     ActualSide.Name = "ActualSide"
     ActualSide.Parent = Sidebar
-    ActualSide.BackgroundColor3 = Color3.fromRGB(75, 75, 75)
+    ActualSide.BackgroundColor3 = Color3.fromRGB(31, 30 ,46)
     ActualSide.BackgroundTransparency = 1.000
     ActualSide.BorderSizePixel = 0
     ActualSide.Position = UDim2.new(0, 0, 0.172972977, 0)
@@ -138,14 +138,14 @@ function Library:Create(xHubName,xGameName)
 
     SideLine.Name = "SideLine"
     SideLine.Parent = Sidebar
-    SideLine.BackgroundColor3 = Color3.fromRGB(75, 75, 75)
+    SideLine.BackgroundColor3 = Color3.fromRGB(31, 30 ,46)
     SideLine.BorderSizePixel = 0
     SideLine.Position = UDim2.new(1, 0, 0, 0)
     SideLine.Size = UDim2.new(0, 2, 0, 370)
 
     GameName.Name = "GameName"
     GameName.Parent = Sidebar
-    GameName.BackgroundColor3 = Color3.fromRGB(75, 75, 75)
+    GameName.BackgroundColor3 = Color3.fromRGB(31, 30 ,46)
     GameName.BackgroundTransparency = 1.000
     GameName.BorderSizePixel = 0
     GameName.Position = UDim2.new(-0.00714285718, 0, 0.0810810775, 0)
