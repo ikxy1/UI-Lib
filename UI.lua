@@ -90,7 +90,7 @@ function Library:Create(xHubName,xGameName)
 
     Sidebar.Name = "Sidebar"
     Sidebar.Parent = Main
-    Sidebar.BackgroundColor3 = Color3.fromRGB(40, 42, 60)
+    Sidebar.BackgroundColor3 = Color3.fromRGB(31, 30 ,46)
     Sidebar.Size = UDim2.new(0, 140, 0, 370)
 
     SidebarCorner.Name = "SidebarCorner"
@@ -98,7 +98,7 @@ function Library:Create(xHubName,xGameName)
 
     Filler.Name = "Filler"
     Filler.Parent = Sidebar
-    Filler.BackgroundColor3 = Color3.fromRGB(40, 42, 60)
+    Filler.BackgroundColor3 = Color3.fromRGB(31, 30 ,46)
     Filler.BorderSizePixel = 0
     Filler.Position = UDim2.new(0.930769145, 0, 0, 0)
     Filler.Size = UDim2.new(0, 9, 0, 370)
