@@ -216,8 +216,8 @@ function Library:Create(xHubName,xGameName)
             TabButton.BackgroundColor3 = Color3.fromRGB(55, 74, 251)
             TabButton.TextColor3 = Color3.fromRGB(160, 32, 240)
         else 
-            TabButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-            TabButton.TextColor3 = Color3.fromRGB(190, 190, 190)
+            TabButton.BackgroundColor3 = Color3.fromRGB(75, 75, 75)
+            TabButton.TextColor3 = Color3.fromRGB(160, 32, 240)
         end
 
         TabButton.MouseButton1Down:Connect(function()
