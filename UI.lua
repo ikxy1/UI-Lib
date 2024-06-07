@@ -1,4 +1,4 @@
-local Library = {}
+;local Library = {}
 -- Random UI Name
 local LibraryName = tostring(math.random(100000,200000))..tostring(math.random(100000,200000))..tostring(math.random(100000,200000))
 
@@ -186,7 +186,7 @@ function Library:Create(xHubName,xGameName)
         Tab.Parent = Tabs
         Tab.Active = true
         Tab.Visible = xVisible
-        Tab.BackgroundColor3 = Color3.fromRGB(54, 69, 79)
+        Tab.BackgroundColor3 = Color3.fromRGB(31, 30 ,46)
         Tab.BorderSizePixel = 0
         Tab.Size = UDim2.new(0, 438, 0, 352)
         Tab.ScrollBarThickness = 5
@@ -199,7 +199,7 @@ function Library:Create(xHubName,xGameName)
 
         TabButton.Name = "TabButton"
         TabButton.Parent = ActualSide
-        TabButton.BackgroundColor3 = Color3.fromRGB(55, 74, 251)
+        TabButton.BackgroundColor3 = Color3.fromRGB(31, 30 ,46)
         TabButton.BorderSizePixel = 0
         TabButton.Size = UDim2.new(0, 139, 0, 35)
         TabButton.Font = Enum.Font.Gotham
@@ -213,10 +213,10 @@ function Library:Create(xHubName,xGameName)
         Tab.ChildRemoved:Connect(Size)
 
         if xVisible then 
-            TabButton.BackgroundColor3 = Color3.fromRGB(75, 75, 75)
+            TabButton.BackgroundColor3 = Color3.fromRGB(31, 30 ,46)
             TabButton.TextColor3 = Color3.fromRGB(160, 32, 240)
         else 
-            TabButton.BackgroundColor3 = Color3.fromRGB(75, 75, 75)
+            TabButton.BackgroundColor3 = Color3.fromRGB(31, 30 ,46)
             TabButton.TextColor3 = Color3.fromRGB(160, 32, 240)
         end
 
@@ -224,7 +224,7 @@ function Library:Create(xHubName,xGameName)
             Size()
             for i,v in pairs(ActualSide:GetChildren()) do 
                 if v:IsA("TextButton") then 
-                    v.BackgroundColor3 = Color3.fromRGB(75, 75, 75)
+                    v.BackgroundColor3 = Color3.fromRGB(31, 30 ,46)
                     v.TextColor3 = Color3.fromRGB(160, 32, 240)
                 end
             end
@@ -253,7 +253,7 @@ function Library:Create(xHubName,xGameName)
 
             LabelFrame.Name = tostring(Name).."_Label"
             LabelFrame.Parent = Tab
-            LabelFrame.BackgroundColor3 = Color3.fromRGB(55, 74, 251)
+            LabelFrame.BackgroundColor3 = Color3.fromRGB(31, 30 ,46)
             LabelFrame.Position = UDim2.new(0.0456621014, 0, 0, 0)
             LabelFrame.Size = UDim2.new(0, 408, 0, 35)
 
@@ -262,7 +262,7 @@ function Library:Create(xHubName,xGameName)
 
             Label.Name = "Label"
             Label.Parent = LabelFrame
-            Label.BackgroundColor3 = Color3.fromRGB(160, 32, 240)
+            Label.BackgroundColor3 = Color3.fromRGB(31, 30 ,46)
             Label.BackgroundTransparency = 1.000
             Label.BorderSizePixel = 0
             Label.Size = UDim2.new(0, 408, 0, 35)
