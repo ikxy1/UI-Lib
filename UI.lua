@@ -213,7 +213,7 @@ function Library:Create(xHubName,xGameName)
         Tab.ChildRemoved:Connect(Size)
 
         if xVisible then 
-            TabButton.BackgroundColor3 = Color3.fromRGB(55, 74, 251)
+            TabButton.BackgroundColor3 = Color3.fromRGB(75, 75, 75)
             TabButton.TextColor3 = Color3.fromRGB(160, 32, 240)
         else 
             TabButton.BackgroundColor3 = Color3.fromRGB(75, 75, 75)
@@ -224,8 +224,8 @@ function Library:Create(xHubName,xGameName)
             Size()
             for i,v in pairs(ActualSide:GetChildren()) do 
                 if v:IsA("TextButton") then 
-                    v.BackgroundColor3 = Color3.fromRGB(40, 42, 60)
-                    v.TextColor3 = Color3.fromRGB(190, 190, 190)
+                    v.BackgroundColor3 = Color3.fromRGB(75, 75, 75)
+                    v.TextColor3 = Color3.fromRGB(160, 32, 240)
                 end
             end
 
