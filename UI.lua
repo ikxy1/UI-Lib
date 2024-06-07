@@ -105,14 +105,14 @@ function Library:Create(xHubName,xGameName)
 
     HubName.Name = "HubName"
     HubName.Parent = Sidebar
-    HubName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    HubName.BackgroundColor3 = Color3.fromRGB(75, 75, 75)
     HubName.BackgroundTransparency = 1.000
     HubName.BorderSizePixel = 0
     HubName.Position = UDim2.new(0, 0, 0.024324324, 0)
     HubName.Size = UDim2.new(0, 140, 0, 21)
     HubName.Font = Enum.Font.Gotham
     HubName.Text = xHubName
-    HubName.TextColor3 = Color3.fromRGB(255, 255, 255)
+    HubName.TextColor3 = Color3.fromRGB(160, 32, 240)
     HubName.TextSize = 16.000
 
     Line.Name = "Line"
@@ -124,7 +124,7 @@ function Library:Create(xHubName,xGameName)
 
     ActualSide.Name = "ActualSide"
     ActualSide.Parent = Sidebar
-    ActualSide.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    ActualSide.BackgroundColor3 = Color3.fromRGB(75, 75, 75)
     ActualSide.BackgroundTransparency = 1.000
     ActualSide.BorderSizePixel = 0
     ActualSide.Position = UDim2.new(0, 0, 0.172972977, 0)
@@ -138,21 +138,21 @@ function Library:Create(xHubName,xGameName)
 
     SideLine.Name = "SideLine"
     SideLine.Parent = Sidebar
-    SideLine.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+    SideLine.BackgroundColor3 = Color3.fromRGB(75, 75, 75)
     SideLine.BorderSizePixel = 0
     SideLine.Position = UDim2.new(1, 0, 0, 0)
     SideLine.Size = UDim2.new(0, 2, 0, 370)
 
     GameName.Name = "GameName"
     GameName.Parent = Sidebar
-    GameName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    GameName.BackgroundColor3 = Color3.fromRGB(75, 75, 75)
     GameName.BackgroundTransparency = 1.000
     GameName.BorderSizePixel = 0
     GameName.Position = UDim2.new(-0.00714285718, 0, 0.0810810775, 0)
     GameName.Size = UDim2.new(0, 141, 0, 25)
     GameName.Font = Enum.Font.Gotham
     GameName.Text = xGameName
-    GameName.TextColor3 = Color3.fromRGB(190, 190, 190)
+    GameName.TextColor3 = Color3.fromRGB(160, 32, 240)
     GameName.TextSize = 14.000
 
     TabHolder.Name = "TabHolder"
