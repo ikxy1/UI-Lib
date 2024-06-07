@@ -80,7 +80,7 @@ function Library:Create(xHubName,xGameName)
 
     Main.Name = "Main"
     Main.Parent = ScreenGui
-    Main.BackgroundColor3 = Color3.fromRGB(128, 128, 128)
+    Main.BackgroundColor3 = Color3.fromRGB(31, 30, 46)
     Main.Position = UDim2.new(0.278277636, 0, 0.281287253, 0)
     Main.Size = UDim2.new(0, 580, 0, 370)
 
@@ -90,7 +90,7 @@ function Library:Create(xHubName,xGameName)
 
     Sidebar.Name = "Sidebar"
     Sidebar.Parent = Main
-    Sidebar.BackgroundColor3 = Color3.fromRGB(31, 30 ,46)
+    Sidebar.BackgroundColor3 = Color3.fromRGB(40, 42, 60)
     Sidebar.Size = UDim2.new(0, 140, 0, 370)
 
     SidebarCorner.Name = "SidebarCorner"
@@ -98,33 +98,33 @@ function Library:Create(xHubName,xGameName)
 
     Filler.Name = "Filler"
     Filler.Parent = Sidebar
-    Filler.BackgroundColor3 = Color3.fromRGB(31, 30 ,46)
+    Filler.BackgroundColor3 = Color3.fromRGB(40, 42, 60)
     Filler.BorderSizePixel = 0
     Filler.Position = UDim2.new(0.930769145, 0, 0, 0)
     Filler.Size = UDim2.new(0, 9, 0, 370)
 
     HubName.Name = "HubName"
     HubName.Parent = Sidebar
-    HubName.BackgroundColor3 = Color3.fromRGB(31, 30 ,46)
+    HubName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     HubName.BackgroundTransparency = 1.000
     HubName.BorderSizePixel = 0
     HubName.Position = UDim2.new(0, 0, 0.024324324, 0)
     HubName.Size = UDim2.new(0, 140, 0, 21)
     HubName.Font = Enum.Font.Gotham
     HubName.Text = xHubName
-    HubName.TextColor3 = Color3.fromRGB(160, 32, 240)
+    HubName.TextColor3 = Color3.fromRGB(255, 255, 255)
     HubName.TextSize = 16.000
 
     Line.Name = "Line"
     Line.Parent = Sidebar
-    Line.BackgroundColor3 = Color3.fromRGB(31, 30 ,46)
+    Line.BackgroundColor3 = Color3.fromRGB(75, 75, 75)
     Line.BorderSizePixel = 0
     Line.Position = UDim2.new(0.0642857179, 0, 0.148648649, 0)
     Line.Size = UDim2.new(0, 121, 0, 2)
 
     ActualSide.Name = "ActualSide"
     ActualSide.Parent = Sidebar
-    ActualSide.BackgroundColor3 = Color3.fromRGB(31, 30 ,46)
+    ActualSide.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     ActualSide.BackgroundTransparency = 1.000
     ActualSide.BorderSizePixel = 0
     ActualSide.Position = UDim2.new(0, 0, 0.172972977, 0)
@@ -138,21 +138,21 @@ function Library:Create(xHubName,xGameName)
 
     SideLine.Name = "SideLine"
     SideLine.Parent = Sidebar
-    SideLine.BackgroundColor3 = Color3.fromRGB(31, 30 ,46)
+    SideLine.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
     SideLine.BorderSizePixel = 0
     SideLine.Position = UDim2.new(1, 0, 0, 0)
     SideLine.Size = UDim2.new(0, 2, 0, 370)
 
     GameName.Name = "GameName"
     GameName.Parent = Sidebar
-    GameName.BackgroundColor3 = Color3.fromRGB(31, 30 ,46)
+    GameName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     GameName.BackgroundTransparency = 1.000
     GameName.BorderSizePixel = 0
     GameName.Position = UDim2.new(-0.00714285718, 0, 0.0810810775, 0)
     GameName.Size = UDim2.new(0, 141, 0, 25)
     GameName.Font = Enum.Font.Gotham
     GameName.Text = xGameName
-    GameName.TextColor3 = Color3.fromRGB(160, 32, 240)
+    GameName.TextColor3 = Color3.fromRGB(190, 190, 190)
     GameName.TextSize = 14.000
 
     TabHolder.Name = "TabHolder"
@@ -186,7 +186,7 @@ function Library:Create(xHubName,xGameName)
         Tab.Parent = Tabs
         Tab.Active = true
         Tab.Visible = xVisible
-        Tab.BackgroundColor3 = Color3.fromRGB(31, 30 ,46)
+        Tab.BackgroundColor3 = Color3.fromRGB(31, 30, 46)
         Tab.BorderSizePixel = 0
         Tab.Size = UDim2.new(0, 438, 0, 352)
         Tab.ScrollBarThickness = 5
@@ -199,7 +199,7 @@ function Library:Create(xHubName,xGameName)
 
         TabButton.Name = "TabButton"
         TabButton.Parent = ActualSide
-        TabButton.BackgroundColor3 = Color3.fromRGB(31, 30 ,46)
+        TabButton.BackgroundColor3 = Color3.fromRGB(55, 74, 251)
         TabButton.BorderSizePixel = 0
         TabButton.Size = UDim2.new(0, 139, 0, 35)
         TabButton.Font = Enum.Font.Gotham
@@ -213,19 +213,19 @@ function Library:Create(xHubName,xGameName)
         Tab.ChildRemoved:Connect(Size)
 
         if xVisible then 
-            TabButton.BackgroundColor3 = Color3.fromRGB(31, 30 ,46)
-            TabButton.TextColor3 = Color3.fromRGB(160, 32, 240)
+            TabButton.BackgroundColor3 = Color3.fromRGB(55, 74, 251)
+            TabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
         else 
-            TabButton.BackgroundColor3 = Color3.fromRGB(31, 30 ,46)
-            TabButton.TextColor3 = Color3.fromRGB(160, 32, 240)
+            TabButton.BackgroundColor3 = Color3.fromRGB(40, 42, 60)
+            TabButton.TextColor3 = Color3.fromRGB(190, 190, 190)
         end
 
         TabButton.MouseButton1Down:Connect(function()
             Size()
             for i,v in pairs(ActualSide:GetChildren()) do 
                 if v:IsA("TextButton") then 
-                    v.BackgroundColor3 = Color3.fromRGB(31, 30 ,46)
-                    v.TextColor3 = Color3.fromRGB(160, 32, 240)
+                    v.BackgroundColor3 = Color3.fromRGB(40, 42, 60)
+                    v.TextColor3 = Color3.fromRGB(190, 190, 190)
                 end
             end
 
@@ -253,7 +253,7 @@ function Library:Create(xHubName,xGameName)
 
             LabelFrame.Name = tostring(Name).."_Label"
             LabelFrame.Parent = Tab
-            LabelFrame.BackgroundColor3 = Color3.fromRGB(31, 30 ,46)
+            LabelFrame.BackgroundColor3 = Color3.fromRGB(55, 74, 251)
             LabelFrame.Position = UDim2.new(0.0456621014, 0, 0, 0)
             LabelFrame.Size = UDim2.new(0, 408, 0, 35)
 
@@ -262,13 +262,13 @@ function Library:Create(xHubName,xGameName)
 
             Label.Name = "Label"
             Label.Parent = LabelFrame
-            Label.BackgroundColor3 = Color3.fromRGB(31, 30 ,46)
+            Label.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
             Label.BackgroundTransparency = 1.000
             Label.BorderSizePixel = 0
             Label.Size = UDim2.new(0, 408, 0, 35)
             Label.Font = Enum.Font.Gotham
             Label.Text = Name
-            Label.TextColor3 = Color3.fromRGB(160, 32, 240)
+            Label.TextColor3 = Color3.fromRGB(255, 255, 255)
             Label.TextSize = 16.000
 
             Label.MouseEnter:Connect(function()
@@ -309,10 +309,10 @@ function Library:Create(xHubName,xGameName)
             
             Button.Name = "Button"
             Button.Parent = ButtonFrame
-            Button.BackgroundColor3 = Color3.fromRGB(190, 190, 190)
+            Button.BackgroundColor3 = Color3.fromRGB(40, 42, 60)
             Button.Size = UDim2.new(0, 408, 0, 35)
             Button.Font = Enum.Font.Gotham
-            Button.TextColor3 = Color3.fromRGB(160, 32, 240)
+            Button.TextColor3 = Color3.fromRGB(255, 255, 255)
             Button.TextSize = 16.000
             Button.Text = Name
             Button.TextXAlignment = Enum.TextXAlignment.Left
