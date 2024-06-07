@@ -186,7 +186,7 @@ function Library:Create(xHubName,xGameName)
         Tab.Parent = Tabs
         Tab.Active = true
         Tab.Visible = xVisible
-        Tab.BackgroundColor3 = Color3.fromRGB(31, 30, 46)
+        Tab.BackgroundColor3 = Color3.fromRGB(54, 69, 79)
         Tab.BorderSizePixel = 0
         Tab.Size = UDim2.new(0, 438, 0, 352)
         Tab.ScrollBarThickness = 5
@@ -214,9 +214,9 @@ function Library:Create(xHubName,xGameName)
 
         if xVisible then 
             TabButton.BackgroundColor3 = Color3.fromRGB(55, 74, 251)
-            TabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+            TabButton.TextColor3 = Color3.fromRGB(160, 32, 240)
         else 
-            TabButton.BackgroundColor3 = Color3.fromRGB(40, 42, 60)
+            TabButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
             TabButton.TextColor3 = Color3.fromRGB(190, 190, 190)
         end
 
