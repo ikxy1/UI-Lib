@@ -80,7 +80,7 @@ function Library:Create(xHubName,xGameName)
 
     Main.Name = "Main"
     Main.Parent = ScreenGui
-    Main.BackgroundColor3 = Color3.fromRGB(128, 128, 128)
+    Main.BackgroundColor3 = Color3.fromRGB(54, 69, 79)
     Main.Position = UDim2.new(0.278277636, 0, 0.281287253, 0)
     Main.Size = UDim2.new(0, 580, 0, 370)
 
@@ -186,7 +186,7 @@ function Library:Create(xHubName,xGameName)
         Tab.Parent = Tabs
         Tab.Active = true
         Tab.Visible = xVisible
-        Tab.BackgroundColor3 = Color3.fromRGB(31, 30, 46)
+        Tab.BackgroundColor3 = Color3.fromRGB(54, 69, 79)
         Tab.BorderSizePixel = 0
         Tab.Size = UDim2.new(0, 438, 0, 352)
         Tab.ScrollBarThickness = 5
