@@ -199,12 +199,12 @@ function Library:Create(xHubName,xGameName)
 
         TabButton.Name = "TabButton"
         TabButton.Parent = ActualSide
-        TabButton.BackgroundColor3 = Color3.fromRGB(55, 74, 251)
+        TabButton.BackgroundColor3 = Color3.fromRGB(31, 30, 46)
         TabButton.BorderSizePixel = 0
         TabButton.Size = UDim2.new(0, 139, 0, 35)
         TabButton.Font = Enum.Font.Gotham
         TabButton.Text = Name
-        TabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+        TabButton.TextColor3 = Color3.fromRGB(160, 32, 240)
         TabButton.TextSize = 14.000
         TabButton.ZIndex = 2
 
