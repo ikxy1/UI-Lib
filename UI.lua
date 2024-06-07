@@ -262,13 +262,13 @@ function Library:Create(xHubName,xGameName)
 
             Label.Name = "Label"
             Label.Parent = LabelFrame
-            Label.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            Label.BackgroundColor3 = Color3.fromRGB(160, 32, 240)
             Label.BackgroundTransparency = 1.000
             Label.BorderSizePixel = 0
             Label.Size = UDim2.new(0, 408, 0, 35)
             Label.Font = Enum.Font.Gotham
             Label.Text = Name
-            Label.TextColor3 = Color3.fromRGB(255, 255, 255)
+            Label.TextColor3 = Color3.fromRGB(160, 32, 240)
             Label.TextSize = 16.000
 
             Label.MouseEnter:Connect(function()
@@ -309,10 +309,10 @@ function Library:Create(xHubName,xGameName)
             
             Button.Name = "Button"
             Button.Parent = ButtonFrame
-            Button.BackgroundColor3 = Color3.fromRGB(40, 42, 60)
+            Button.BackgroundColor3 = Color3.fromRGB(190, 190, 190)
             Button.Size = UDim2.new(0, 408, 0, 35)
             Button.Font = Enum.Font.Gotham
-            Button.TextColor3 = Color3.fromRGB(255, 255, 255)
+            Button.TextColor3 = Color3.fromRGB(160, 32, 240)
             Button.TextSize = 16.000
             Button.Text = Name
             Button.TextXAlignment = Enum.TextXAlignment.Left
