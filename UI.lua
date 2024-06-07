@@ -199,7 +199,7 @@ function Library:Create(xHubName,xGameName)
 
         TabButton.Name = "TabButton"
         TabButton.Parent = ActualSide
-        TabButton.BackgroundColor3 = Color3.fromRGB(55, 74, 251)
+        TabButton.BackgroundColor3 = Color3.fromRGB(40, 42, 60)
         TabButton.BorderSizePixel = 0
         TabButton.Size = UDim2.new(0, 139, 0, 35)
         TabButton.Font = Enum.Font.Gotham
@@ -235,7 +235,7 @@ function Library:Create(xHubName,xGameName)
 
             Tab.Visible = true
             game:GetService("TweenService"):Create(TabButton, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
-                BackgroundColor3 = Color3.fromRGB(55, 74, 251)
+                BackgroundColor3 = Color3.fromRGB(40, 42, 60)
             }):Play()
             game:GetService("TweenService"):Create(TabButton, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
                 TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -278,7 +278,7 @@ function Library:Create(xHubName,xGameName)
             end)
             Label.MouseLeave:Connect(function()
                 game:GetService("TweenService"):Create(LabelFrame, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
-                    BackgroundColor3 = Color3.fromRGB(55, 74, 251)
+                    BackgroundColor3 = Color3.fromRGB(40, 42, 60)
                 }):Play()
             end)
 
@@ -327,7 +327,7 @@ function Library:Create(xHubName,xGameName)
 
             Button.MouseButton1Down:Connect(function()
                 game:GetService("TweenService"):Create(Button, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
-                    BackgroundColor3 = Color3.fromRGB(55, 74, 251)
+                    BackgroundColor3 = Color3.fromRGB(40, 42, 60)
                 }):Play()
                 wait(0.1)
                 game:GetService("TweenService"):Create(Button, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
@@ -429,7 +429,7 @@ function Library:Create(xHubName,xGameName)
             ToggleButton.MouseButton1Down:Connect(function()
                 ToggleEnabled = not ToggleEnabled
                 if ToggleEnabled then 
-                    game:GetService("TweenService"):Create(ToggleF, TweenInfo.new(0.3), {BackgroundColor3 = Color3.fromRGB(55, 74, 251)}):Play() 
+                    game:GetService("TweenService"):Create(ToggleF, TweenInfo.new(0.3), {BackgroundColor3 = Color3.fromRGB(40, 42, 60)}):Play() 
                     game:GetService("TweenService"):Create(ToggleCircle, TweenInfo.new(0.3), {Position = UDim2.new(0.559, 0,0.153, 0)}):Play() 
                 else
                     game:GetService("TweenService"):Create(ToggleF, TweenInfo.new(0.3), {BackgroundColor3 = Color3.fromRGB(55, 55, 75)}):Play() 
@@ -479,7 +479,7 @@ function Library:Create(xHubName,xGameName)
 
             SliderTrail.Name = "SliderTrail"
             SliderTrail.Parent = SliderButton
-            SliderTrail.BackgroundColor3 = Color3.fromRGB(55, 74, 251)
+            SliderTrail.BackgroundColor3 = Color3.fromRGB(40, 42, 60)
             SliderTrail.Size = UDim2.new(0, 0, 0, 10)
             SliderTrail.BorderSizePixel = 0
 
@@ -613,7 +613,7 @@ function Library:Create(xHubName,xGameName)
 
             Textbox.Focused:Connect(function()
                 game:GetService("TweenService"):Create(Textbox, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
-                    BackgroundColor3 = Color3.fromRGB(55, 74, 251)
+                    BackgroundColor3 = Color3.fromRGB(40, 42, 60)
                 }):Play()
             end)
 
@@ -677,7 +677,7 @@ function Library:Create(xHubName,xGameName)
 
             KeybindButton.MouseButton1Click:connect(function() 
                 game.TweenService:Create(KeybindButton, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
-                    BackgroundColor3 = Color3.fromRGB(55, 74, 251)
+                    BackgroundColor3 = Color3.fromRGB(40, 42, 60)
                 }):Play()
                 KeybindButton.Text = ". . ."
                 local v1, v2 = game:GetService('UserInputService').InputBegan:wait();
@@ -819,7 +819,7 @@ function Library:Create(xHubName,xGameName)
                     Tab.CanvasSize = UDim2.new(0,0,0,DropListLayout.AbsoluteContentSize.Y + 100)
                     wait(0.1)
                     game:GetService("TweenService"):Create(DropdownIcon, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
-                        ImageColor3 = Color3.fromRGB(55, 74, 251)
+                        ImageColor3 = Color3.fromRGB(40, 42, 60)
                     }):Play()
                     Tab.CanvasSize = UDim2.new(0,0,0,DropListLayout.AbsoluteContentSize.Y + 100)
                 end 
@@ -849,7 +849,7 @@ function Library:Create(xHubName,xGameName)
                         end 
                     end
                     game:GetService("TweenService"):Create(Option, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
-                        TextColor3 = Color3.fromRGB(55, 74, 251)
+                        TextColor3 = Color3.fromRGB(40, 42, 60)
                     }):Play()
                     DropList:TweenSize(UDim2.new(0, 408, 0, 35), "InOut", "Linear", 0.1)
                     game:GetService("TweenService"):Create(DropdownIcon, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
@@ -902,7 +902,7 @@ function Library:Create(xHubName,xGameName)
                             end 
                         end
                         game:GetService("TweenService"):Create(Option, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
-                            TextColor3 = Color3.fromRGB(55, 74, 251)
+                            TextColor3 = Color3.fromRGB(40, 42, 60)
                         }):Play()
                         DropList:TweenSize(UDim2.new(0, 408, 0, 35), "InOut", "Linear", 0.1)
                         game:GetService("TweenService"):Create(DropdownIcon, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
