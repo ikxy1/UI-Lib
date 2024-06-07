@@ -1,460 +1,936 @@
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Mapple7777/UI-Librarys/main/UI-1/UI.lua"))()
- 
- 
-local Window = Library:Create("Skid Ware","Da hood")
-local Tab1 = Window:Tab("Aimlocks",true)
- 
-Tab1:Label("Aimlock")
- 
-Tab1:Toggle("Aimlock",function(bool)
-    getgenv().AimPart = "HumanoidRootPart"
-	getgenv().AimlockKey = "h"
-	getgenv().AimRadius = 30
-	getgenv().ThirdPerson = true
-	getgenv().FirstPerson = true
-	getgenv().TeamCheck = false
-	getgenv().PredictMovement = true
-	getgenv().PredictionVelocity = 6
-	local L_27_, L_28_, L_29_, L_30_ =
-            game:GetService "Players",
-            game:GetService "UserInputService",
-            game:GetService "RunService",
-            game:GetService "StarterGui"
-	local L_31_, L_32_, L_33_, L_34_, L_35_, L_36_, L_37_ =
-            L_27_.LocalPlayer,
-            L_27_.LocalPlayer:GetMouse(),
-            workspace.CurrentCamera,
-            CFrame.new,
-            Ray.new,
-            Vector3.new,
-            Vector2.new
-	local L_38_, L_39_, L_40_ = true, false, false
-	local L_41_
-	getgenv().CiazwareUniversalAimbotLoaded = true
-	getgenv().WorldToViewportPoint = function(L_42_arg0)
-		return L_33_:WorldToViewportPoint(L_42_arg0)
-	end
-	getgenv().WorldToScreenPoint = function(L_43_arg0)
-		return L_33_.WorldToScreenPoint(L_33_, L_43_arg0)
-	end
-	getgenv().GetObscuringObjects = function(L_44_arg0)
-		if L_44_arg0 and L_44_arg0:FindFirstChild(getgenv().AimPart) and L_31_ and L_31_.Character:FindFirstChild("Head") then
-			local L_45_ = workspace:FindPartOnRay(L_35_(L_44_arg0[getgenv().AimPart].Position, L_31_.Character.Head.Position))
-			if L_45_ then
-				return L_45_:IsDescendantOf(L_44_arg0)
-			end
-		end
-	end
-	getgenv().GetNearestTarget = function()
-		local L_46_ = {}
-		local L_47_ = {}
-		local L_48_ = {}
-		for L_50_forvar0, L_51_forvar1 in pairs(L_27_:GetPlayers()) do
-			if L_51_forvar1 ~= L_31_ then
-				table.insert(L_46_, L_51_forvar1)
-			end
-		end
-		for L_52_forvar0, L_53_forvar1 in pairs(L_46_) do
-			if L_53_forvar1.Character ~= nil then
-				local L_54_ = L_53_forvar1.Character:FindFirstChild("Head")
-				if getgenv().TeamCheck == true and L_53_forvar1.Team ~= L_31_.Team then
-					local L_55_ =
-                            (L_53_forvar1.Character:FindFirstChild("Head").Position - game.Workspace.CurrentCamera.CFrame.p).magnitude
-					local L_56_ =
-                            Ray.new(
-                            game.Workspace.CurrentCamera.CFrame.p,
-                            (L_32_.Hit.p - game.Workspace.CurrentCamera.CFrame.p).unit * L_55_
-                        )
-					local L_57_, L_58_ = game.Workspace:FindPartOnRay(L_56_, game.Workspace)
-					local L_59_ = math.floor((L_58_ - L_54_.Position).magnitude)
-					L_47_[L_53_forvar1.Name .. L_52_forvar0] = {}
-					L_47_[L_53_forvar1.Name .. L_52_forvar0].dist = L_55_
-					L_47_[L_53_forvar1.Name .. L_52_forvar0].plr = L_53_forvar1
-					L_47_[L_53_forvar1.Name .. L_52_forvar0].diff = L_59_
-					table.insert(L_48_, L_59_)
-				elseif getgenv().TeamCheck == false and L_53_forvar1.Team == L_31_.Team then
-					local L_60_ =
-                            (L_53_forvar1.Character:FindFirstChild("Head").Position - game.Workspace.CurrentCamera.CFrame.p).magnitude
-					local L_61_ =
-                            Ray.new(
-                            game.Workspace.CurrentCamera.CFrame.p,
-                            (L_32_.Hit.p - game.Workspace.CurrentCamera.CFrame.p).unit * L_60_
-                        )
-					local L_62_, L_63_ = game.Workspace:FindPartOnRay(L_61_, game.Workspace)
-					local L_64_ = math.floor((L_63_ - L_54_.Position).magnitude)
-					L_47_[L_53_forvar1.Name .. L_52_forvar0] = {}
-					L_47_[L_53_forvar1.Name .. L_52_forvar0].dist = L_60_
-					L_47_[L_53_forvar1.Name .. L_52_forvar0].plr = L_53_forvar1
-					L_47_[L_53_forvar1.Name .. L_52_forvar0].diff = L_64_
-					table.insert(L_48_, L_64_)
-				end
-			end
-		end
-		if unpack(L_48_) == nil then
-			return nil
-		end
-		local L_49_ = math.floor(math.min(unpack(L_48_)))
-		if L_49_ > getgenv().AimRadius then
-			return nil
-		end
-		for L_65_forvar0, L_66_forvar1 in pairs(L_47_) do
-			if L_66_forvar1.diff == L_49_ then
-				return L_66_forvar1.plr
-			end
-		end
-		return nil
-	end
-	L_32_.KeyDown:Connect(
-            function(L_67_arg0)
-		if L_67_arg0 == AimlockKey and L_41_ == nil then
-			pcall(
-                        function()
-				if L_39_ ~= true then
-					L_39_ = true
-				end
-				local L_68_
-				L_68_ = GetNearestTarget()
-				if L_68_ ~= nil then
-					L_41_ = L_68_
-				end
-			end
-                    )
-		elseif L_67_arg0 == AimlockKey and L_41_ ~= nil then
-			if L_41_ ~= nil then
-				L_41_ = nil
-			end
-			if L_39_ ~= false then
-				L_39_ = false
-			end
-		end
-	end
-        )
-	L_29_.RenderStepped:Connect(
-            function()
-		if getgenv().ThirdPerson == true and getgenv().FirstPerson == true then
-			if
-                        (L_33_.Focus.p - L_33_.CoordinateFrame.p).Magnitude > 1 or
-                            (L_33_.Focus.p - L_33_.CoordinateFrame.p).Magnitude <= 1
-                     then
-				L_40_ = true
-			else
-				L_40_ = false
-			end
-		elseif getgenv().ThirdPerson == true and getgenv().FirstPerson == false then
-			if (L_33_.Focus.p - L_33_.CoordinateFrame.p).Magnitude > 1 then
-				L_40_ = true
-			else
-				L_40_ = false
-			end
-		elseif getgenv().ThirdPerson == false and getgenv().FirstPerson == true then
-			if (L_33_.Focus.p - L_33_.CoordinateFrame.p).Magnitude <= 1 then
-				L_40_ = true
-			else
-				L_40_ = false
-			end
-		end
-		if L_38_ == true and L_39_ == true then
-			if L_41_ and L_41_.Character and L_41_.Character:FindFirstChild(getgenv().AimPart) then
-				if getgenv().FirstPerson == true then
-					if L_40_ == true then
-						if getgenv().PredictMovement == true then
-							L_33_.CFrame =
-                                        L_34_(
-                                        L_33_.CFrame.p,
-                                        L_41_.Character[getgenv().AimPart].Position +
-                                            L_41_.Character[getgenv().AimPart].Velocity / PredictionVelocity
-                                    )
-						elseif getgenv().PredictMovement == false then
-							L_33_.CFrame = L_34_(L_33_.CFrame.p, L_41_.Character[getgenv().AimPart].Position)
-						end
-					end
-				elseif getgenv().ThirdPerson == true then
-					if L_40_ == true then
-						if getgenv().PredictMovement == true then
-							L_33_.CFrame =
-                                        L_34_(
-                                        L_33_.CFrame.p,
-                                        L_41_.Character[getgenv().AimPart].Position +
-                                            L_41_.Character[getgenv().AimPart].Velocity / PredictionVelocity
-                                    )
-						elseif getgenv().PredictMovement == false then
-							L_33_.CFrame = L_34_(L_33_.CFrame.p, L_41_.Character[getgenv().AimPart].Position)
-						end
-					end
-				end
-			end
-		end
-	end
-        )
-end)
- 
-Tab1:Textbox("Aimlock Keybind","h",function(bool)
-    getgenv().AimlockKey = bool
-end)
- 
-Tab1:Dropdown("AimPart",{"Head","HumanoidRootPart","UpperTorso","LowerTorso"},function(value)
-    getgenv().AimPart = value
-end)
- 
-local Tab2 = Window:Tab("Player",false)
- 
-Tab2:Label("Player Scripts")
- 
-game.StarterGui:SetCore("SendNotification", {
-    Title = "Skid Ware";
-    Text = "Welcome to Skid Ware";
-    Icon = "http://www.roblox.com/asset/?id=17713084815";
-    Duration = "5";
-    callbakc = bindableFunction;
-    Button1 = "Okay";
-})
- 
-Tab2:Button("FLY (X)",function(bool)
-    loadstring(game:HttpGet("https://pastebin.com/raw/sUA9m6M6"))()
-end)
- 
-Tab2:Slider("Fov Camera",80,200,function(text)
-    workspace.CurrentCamera.FieldOfView = (text)
-end)
- 
-Tab2:Button("Tryhard Anims",function(bool)
-    while true do
-        wait(1)
-        for i, player in ipairs(game.Players:GetChildren()) do
-        local Animate = game.Players.LocalPlayer.Character.Animate
-    Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=782841498"
-    Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=782841498"
-    Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=616168032"
-    Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=616163682"
-    Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=1083218792"
-    Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=1083439238"
-    Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=707829716"
-    game.Players.LocalPlayer.Character.Humanoid.Jump = false
-        end
-    end
-end)
- 
-Tab2:Button("Headless Client Sided",function(bool)
-    getgenv().game.Players.LocalPlayer.Character.Head.Transparency = 1
-    getgenv().game.Players.LocalPlayer.Character.Head.face:Destroy()
-    getgenv().game.Players.LocalPlayer.Character.Head.face:Destroy()
-end)
- 
---[[ Tab2:Button("Korblox Client Sided",function(bool)
-	local ply = game.Players.LocalPlayer
-	local chr = ply.Character
-	chr.RightLowerLeg.MeshId = "902942093"
-	chr.RightLowerLeg.Transparency = "1"
-	chr.RightUpperLeg.MeshId = "http://www.roblox.com/asset/?id=902942096"
-	chr.RightUpperLeg.TextureID = "http://roblox.com/asset/?id=902843398"
-	chr.RightFoot.MeshId = "902942089"
-	chr.RightFoot.Transparency = "1"
-end)
---]]
- 
-Tab2:Button("Trash Talk (J)",function(bool)
-    local plr = game.Players.LocalPlayer
-repeat wait(1) until plr.Character
-local char = plr.Character
- 
-local garbage = {
-    "lint licker";
-    "ez";
-    "You miss more shots than a autistic Stormtrooper";
-    "You could feed all of africa with your deaths";
-    "I hope your dinners cold tonight";
-    "Good Doggy";
-}
- 
- 
-function TrashTalk(inputObject, gameProcessedEvent)
-    if inputObject.KeyCode == Enum.KeyCode.J and gameProcessedEvent == false then        
-game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(
-        garbage[math.random(1,#garbage)],
-        "All"
-    )
+local Library = {}
+-- Random UI Name
+local LibraryName = tostring(math.random(100000,200000))..tostring(math.random(100000,200000))..tostring(math.random(100000,200000))
+
+function Library:Toggle()
+    if game.CoreGui:FindFirstChild(LibraryName).Enabled then 
+        game.CoreGui:FindFirstChild(LibraryName).Enabled = false
+    else 
+        game.CoreGui:FindFirstChild(LibraryName).Enabled = true
     end
 end
- 
-game:GetService("UserInputService").InputBegan:connect(TrashTalk)
-end)
 
-local Tab3 = Window:Tab("ESP",false)
-
-Tab3:Label("Esp")
-
---[[ local Tab4 = Window:Tab("Anti-Lock",false)
- 
-Tab4:Label("Anti-Lock")
- 
-Tab4:Button("FIX ANTILOCK",function(bool)
- 
-    for _, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
-        if v:IsA("Script") and v.Name ~= "Health" and v.Name ~= "Sound" and v:FindFirstChild("LocalScript") then
-            v:Destroy()
-        end
+function Library:Drag(obj)
+    local UserInputService = game:GetService("UserInputService")
+    
+    local gui = obj
+    
+    local dragging
+    local dragInput
+    local dragStart
+    local startPos
+    
+    local function update(input)
+        local delta = input.Position - dragStart
+        gui.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
     end
-    game.Players.LocalPlayer.CharacterAdded:Connect(function(char)
-        repeat
-            wait()
-        until game.Players.LocalPlayer.Character
-        char.ChildAdded:Connect(function(child)
-            if child:IsA("Script") then 
-                wait(0.1)
-                if child:FindFirstChild("LocalScript") then
-                    child.LocalScript:FireServer()
+    
+    gui.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+            dragging = true
+            dragStart = input.Position
+            startPos = gui.Position
+    
+            input.Changed:Connect(function()
+                if input.UserInputState == Enum.UserInputState.End then
+                    dragging = false
+                end
+            end)
+        end
+    end)
+    
+    gui.InputChanged:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+            dragInput = input
+        end
+    end)
+    
+    UserInputService.InputChanged:Connect(function(input)
+        if input == dragInput and dragging then
+            update(input)
+        end
+    end)
+end
+
+function Library:Create(xHubName,xGameName)
+    local xHubName = xHubName or "UI Library"
+    local xGameName = xGameName or "By Mapple#3045"
+    local ScreenGui = Instance.new("ScreenGui")
+    local Main = Instance.new("Frame")
+    local MainCorner = Instance.new("UICorner")
+    local Sidebar = Instance.new("Frame")
+    local SidebarCorner = Instance.new("UICorner")
+    local Filler = Instance.new("Frame")
+    local HubName = Instance.new("TextLabel")
+    local Line = Instance.new("Frame")
+    local ActualSide = Instance.new("ScrollingFrame")
+    local ActualSideListLayout = Instance.new("UIListLayout")
+    local SideLine = Instance.new("Frame")
+    local GameName = Instance.new("TextLabel")
+    local TabHolder = Instance.new("Frame")
+    local Tabs = Instance.new("Folder")
+
+    function ScrollSize()
+        ActualSide.CanvasSize = UDim2.new(0, 0, 0, ActualSideListLayout.AbsoluteContentSize.Y)
+    end
+
+    ScreenGui.Parent = game.CoreGui
+    ScreenGui.ResetOnSpawn = false 
+    ScreenGui.Name = LibraryName
+
+    Main.Name = "Main"
+    Main.Parent = ScreenGui
+    Main.BackgroundColor3 = Color3.fromRGB(128, 128, 128)
+    Main.Position = UDim2.new(0.278277636, 0, 0.281287253, 0)
+    Main.Size = UDim2.new(0, 580, 0, 370)
+
+    MainCorner.CornerRadius = UDim.new(0, 12)
+    MainCorner.Name = "MainCorner"
+    MainCorner.Parent = Main
+
+    Sidebar.Name = "Sidebar"
+    Sidebar.Parent = Main
+    Sidebar.BackgroundColor3 = Color3.fromRGB(40, 42, 60)
+    Sidebar.Size = UDim2.new(0, 140, 0, 370)
+
+    SidebarCorner.Name = "SidebarCorner"
+    SidebarCorner.Parent = Sidebar
+
+    Filler.Name = "Filler"
+    Filler.Parent = Sidebar
+    Filler.BackgroundColor3 = Color3.fromRGB(40, 42, 60)
+    Filler.BorderSizePixel = 0
+    Filler.Position = UDim2.new(0.930769145, 0, 0, 0)
+    Filler.Size = UDim2.new(0, 9, 0, 370)
+
+    HubName.Name = "HubName"
+    HubName.Parent = Sidebar
+    HubName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    HubName.BackgroundTransparency = 1.000
+    HubName.BorderSizePixel = 0
+    HubName.Position = UDim2.new(0, 0, 0.024324324, 0)
+    HubName.Size = UDim2.new(0, 140, 0, 21)
+    HubName.Font = Enum.Font.Gotham
+    HubName.Text = xHubName
+    HubName.TextColor3 = Color3.fromRGB(255, 255, 255)
+    HubName.TextSize = 16.000
+
+    Line.Name = "Line"
+    Line.Parent = Sidebar
+    Line.BackgroundColor3 = Color3.fromRGB(75, 75, 75)
+    Line.BorderSizePixel = 0
+    Line.Position = UDim2.new(0.0642857179, 0, 0.148648649, 0)
+    Line.Size = UDim2.new(0, 121, 0, 2)
+
+    ActualSide.Name = "ActualSide"
+    ActualSide.Parent = Sidebar
+    ActualSide.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    ActualSide.BackgroundTransparency = 1.000
+    ActualSide.BorderSizePixel = 0
+    ActualSide.Position = UDim2.new(0, 0, 0.172972977, 0)
+    ActualSide.Size = UDim2.new(0, 139, 0, 297)
+    ActualSide.CanvasSize = UDim2.new(0,0,0,0)
+    ActualSide.ScrollBarThickness = 0
+
+    ActualSideListLayout.Name = "ActualSideListLayout"
+    ActualSideListLayout.Parent = ActualSide
+    ActualSideListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+
+    SideLine.Name = "SideLine"
+    SideLine.Parent = Sidebar
+    SideLine.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+    SideLine.BorderSizePixel = 0
+    SideLine.Position = UDim2.new(1, 0, 0, 0)
+    SideLine.Size = UDim2.new(0, 2, 0, 370)
+
+    GameName.Name = "GameName"
+    GameName.Parent = Sidebar
+    GameName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    GameName.BackgroundTransparency = 1.000
+    GameName.BorderSizePixel = 0
+    GameName.Position = UDim2.new(-0.00714285718, 0, 0.0810810775, 0)
+    GameName.Size = UDim2.new(0, 141, 0, 25)
+    GameName.Font = Enum.Font.Gotham
+    GameName.Text = xGameName
+    GameName.TextColor3 = Color3.fromRGB(190, 190, 190)
+    GameName.TextSize = 14.000
+
+    TabHolder.Name = "TabHolder"
+    TabHolder.Parent = Main
+    TabHolder.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    TabHolder.BackgroundTransparency = 1.000
+    TabHolder.BorderSizePixel = 0
+    TabHolder.Position = UDim2.new(0.244827583, 0, 0.024324324, 0)
+    TabHolder.Size = UDim2.new(0, 438, 0, 352)
+
+    Tabs.Name = "Tabs"
+    Tabs.Parent = TabHolder
+
+    Library:Drag(Main)
+
+    local xTabs = {}
+    
+    function xTabs:Tab(Name,xVisible)
+        local Name = Name or "Tab"
+        local Tab = Instance.new("ScrollingFrame")
+        local TabListLayout = Instance.new("UIListLayout")
+        local TabButton = Instance.new("TextButton")
+        
+        ScrollSize()
+
+        function Size()
+            Tab.CanvasSize = UDim2.new(0, 0, 0, TabListLayout.AbsoluteContentSize.Y)
+        end
+
+        Tab.Name = "Tab"
+        Tab.Parent = Tabs
+        Tab.Active = true
+        Tab.Visible = xVisible
+        Tab.BackgroundColor3 = Color3.fromRGB(31, 30, 46)
+        Tab.BorderSizePixel = 0
+        Tab.Size = UDim2.new(0, 438, 0, 352)
+        Tab.ScrollBarThickness = 5
+        
+        TabListLayout.Name = "TabListLayout"
+        TabListLayout.Parent = Tab
+        TabListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+        TabListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+        TabListLayout.Padding = UDim.new(0, 5)
+
+        TabButton.Name = "TabButton"
+        TabButton.Parent = ActualSide
+        TabButton.BackgroundColor3 = Color3.fromRGB(55, 74, 251)
+        TabButton.BorderSizePixel = 0
+        TabButton.Size = UDim2.new(0, 139, 0, 35)
+        TabButton.Font = Enum.Font.Gotham
+        TabButton.Text = Name
+        TabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+        TabButton.TextSize = 14.000
+        TabButton.ZIndex = 2
+
+        Size()
+        Tab.ChildAdded:Connect(Size)
+        Tab.ChildRemoved:Connect(Size)
+
+        if xVisible then 
+            TabButton.BackgroundColor3 = Color3.fromRGB(55, 74, 251)
+            TabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+        else 
+            TabButton.BackgroundColor3 = Color3.fromRGB(40, 42, 60)
+            TabButton.TextColor3 = Color3.fromRGB(190, 190, 190)
+        end
+
+        TabButton.MouseButton1Down:Connect(function()
+            Size()
+            for i,v in pairs(ActualSide:GetChildren()) do 
+                if v:IsA("TextButton") then 
+                    v.BackgroundColor3 = Color3.fromRGB(40, 42, 60)
+                    v.TextColor3 = Color3.fromRGB(190, 190, 190)
                 end
             end
-        end)
-    end)
- 
-end)
- 
-local glitch = false
-local clicker = false
- 
-Tab4:Textbox("AntiLock (use -0.10 to -0.60)","Speed",function(a)
- 
-    getgenv().Multiplier = a
- 
-end, {
-    ["clear"] = false,
-})
- 
-Tab4:Button("Antilock Improved (Z)",function(bool)
-    local userInput = game:service('UserInputService')
-    local runService = game:service('RunService')
- 
-    userInput.InputBegan:connect(function(Key)
-        if Key.KeyCode == Enum.KeyCode.Z then
-            Enabled = not Enabled
-            if Enabled == true then
-                repeat
-                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame + game.Players.LocalPlayer.Character.Humanoid.MoveDirection * getgenv().Multiplier
-                    runService.Stepped:wait()
-                until Enabled == false
+
+            for i,v in pairs(Tabs:GetChildren()) do
+                v.Visible = false
             end
+
+            Tab.Visible = true
+            game:GetService("TweenService"):Create(TabButton, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+                BackgroundColor3 = Color3.fromRGB(55, 74, 251)
+            }):Play()
+            game:GetService("TweenService"):Create(TabButton, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+                TextColor3 = Color3.fromRGB(255, 255, 255)
+            }):Play()
+        end)
+
+        local Elements = {}
+
+        function Elements:Label(Name)
+            local Name = Name or "Label"
+            local LabelFunction = {}
+            local LabelFrame = Instance.new("Frame")
+            local LabelFrameCorner = Instance.new("UICorner")
+            local Label = Instance.new("TextLabel")
+
+            LabelFrame.Name = tostring(Name).."_Label"
+            LabelFrame.Parent = Tab
+            LabelFrame.BackgroundColor3 = Color3.fromRGB(55, 74, 251)
+            LabelFrame.Position = UDim2.new(0.0456621014, 0, 0, 0)
+            LabelFrame.Size = UDim2.new(0, 408, 0, 35)
+
+            LabelFrameCorner.Name = "LabelFrameCorner"
+            LabelFrameCorner.Parent = LabelFrame
+
+            Label.Name = "Label"
+            Label.Parent = LabelFrame
+            Label.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            Label.BackgroundTransparency = 1.000
+            Label.BorderSizePixel = 0
+            Label.Size = UDim2.new(0, 408, 0, 35)
+            Label.Font = Enum.Font.Gotham
+            Label.Text = Name
+            Label.TextColor3 = Color3.fromRGB(255, 255, 255)
+            Label.TextSize = 16.000
+
+            Label.MouseEnter:Connect(function()
+                game:GetService("TweenService"):Create(LabelFrame, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+                    BackgroundColor3 = Color3.fromRGB(63, 83, 255)
+                }):Play()
+            end)
+            Label.MouseLeave:Connect(function()
+                game:GetService("TweenService"):Create(LabelFrame, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+                    BackgroundColor3 = Color3.fromRGB(55, 74, 251)
+                }):Play()
+            end)
+
+            function LabelFunction:UpdateLabel(Name)
+                Label.Text = Name
+                LabelHolder.Name = tostring(Name).."_Label"
+            end
+            return LabelFunction
         end
-    end)
-end)
---]]
- 
-local Tab5 = Window:Tab("Teleports",false)
- 
-Tab5:Label("Teleports")
 
-Tab5:Button("Revolver",function(value)
-    getgenv().game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-638.7486572265625, 21.74802017211914, -118.1715087890625)
-end)
+        function Elements:Button(Name,Callback)
+            local Name = Name or "Button"
+            local ButtonFunction = {}
+            local Callback = Callback or function () end
+            local ButtonFrame = Instance.new("Frame")
+            local ButtonFrameCorner = Instance.new("UICorner")
+            local Button = Instance.new("TextButton")
+            local ButtonCorner = Instance.new("UICorner")
+            local ButtonPadding = Instance.new("UIPadding")
 
-Tab5:Button("Double Barrel",function(value)
-    getgenv().game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1042.7535400390625, 21.74802017211914, -255.73590087890625)
-end)
+            ButtonFrame.Name = tostring(Name).."_Button"
+            ButtonFrame.Parent = Tab
+            ButtonFrame.BackgroundColor3 = Color3.fromRGB(40, 42, 60)
+            ButtonFrame.Size = UDim2.new(0, 408, 0, 35)
+            
+            ButtonFrameCorner.Name = "ButtonFrameCorner"
+            ButtonFrameCorner.Parent = ButtonFrame
+            
+            Button.Name = "Button"
+            Button.Parent = ButtonFrame
+            Button.BackgroundColor3 = Color3.fromRGB(40, 42, 60)
+            Button.Size = UDim2.new(0, 408, 0, 35)
+            Button.Font = Enum.Font.Gotham
+            Button.TextColor3 = Color3.fromRGB(255, 255, 255)
+            Button.TextSize = 16.000
+            Button.Text = Name
+            Button.TextXAlignment = Enum.TextXAlignment.Left
+            Button.ZIndex = 2
+            
+            ButtonCorner.Name = "ButtonCorner"
+            ButtonCorner.Parent = Button
+            
+            ButtonPadding.Name = "ButtonPadding"
+            ButtonPadding.Parent = Button
+            ButtonPadding.PaddingLeft = UDim.new(0, 10)
 
-Tab5:Button("Da Bank",function(value)
-    getgenv().game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-406.2017517089844, 21.74802589416504, -285.49774169921875)
-end)
+            Button.MouseButton1Down:Connect(function()
+                game:GetService("TweenService"):Create(Button, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+                    BackgroundColor3 = Color3.fromRGB(55, 74, 251)
+                }):Play()
+                wait(0.1)
+                game:GetService("TweenService"):Create(Button, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+                    BackgroundColor3 = Color3.fromRGB(40, 42, 60)
+                }):Play()
+                pcall(Callback)
+            end)
 
-Tab5:Button("Downhill Gunstore",function(value)
-    getgenv().game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-577.9317626953125, 8.312804222106934, -736.03564453125)
-end)
+            Button.MouseEnter:Connect(function()
+                game:GetService("TweenService"):Create(Button, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+                    BackgroundColor3 = Color3.fromRGB(48, 51, 70)
+                }):Play()
+            end)
+            Button.MouseLeave:Connect(function()
+                game:GetService("TweenService"):Create(Button, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+                    BackgroundColor3 = Color3.fromRGB(40, 42, 60)
+                }):Play()
+            end)
 
-Tab5:Button("Uphill Gunstore",function(value)
-    getgenv().game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(481.59942626953125, 48.06851577758789, -619.5245361328125)
-end)
+            function ButtonFunction:UpdateButton(Name)
+                Button.Text = Name
+                ButtonHolder.Name = tostring(Name).."_Button"
+            end
+            return ButtonFunction
+        end
 
-Tab5:Button("Armor",function(value)
-    getgenv().game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1178.1571044921875, 28.378028869628906, -497.09161376953125)
-end)
+        function Elements:Toggle(Name,Callback)
+            local Name = Name or "Toggle"
+            local Callback = Callback or function() end
+            local ToggleEnabled = false
+            local ToggleFrame = Instance.new("Frame")
+            local ToggleName = Instance.new("TextLabel")
+            local ToggleNamePadding = Instance.new("UIPadding")
+            local ToggleFrameCorner = Instance.new("UICorner")
+            local ToggleCorner = Instance.new("UICorner")
+            local ToggleCircle = Instance.new("ImageLabel")
+            local ToggleButton = Instance.new("TextButton")
+            local ToggleF = Instance.new("Frame")
 
-Tab5:Button("Flame Thrower",function(value)
-    getgenv().game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-153.2495880126953, 53.80862808227539, -101.01776123046875)
-end)
- 
-Tab5:Button("RPG",function(value)
-    getgenv().game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(115.57005310058594, -26.752010345458984, -271.0687561035156)
-end)
+            ToggleFrame.Name = tostring(Name).."_Toggle"
+            ToggleFrame.Parent = Tab
+            ToggleFrame.BackgroundColor3 = Color3.fromRGB(40, 42, 60)
+            ToggleFrame.BorderSizePixel = 0
+            ToggleFrame.Size = UDim2.new(0, 408, 0, 35)
 
-Tab5:Button("Casino 1v1",function(value)
-    getgenv().game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-962.7234497070312, 21.25301742553711, -186.8149871826172)
-end)
+            ToggleName.Name = "ToggleName"
+            ToggleName.Parent = ToggleFrame
+            ToggleName.BackgroundColor3 = Color3.fromRGB(40, 42, 60)
+            ToggleName.BackgroundTransparency = 1.000
+            ToggleName.BorderSizePixel = 0
+            ToggleName.Size = UDim2.new(0, 347, 0, 35)
+            ToggleName.Font = Enum.Font.Gotham
+            ToggleName.Text = Name
+            ToggleName.TextColor3 = Color3.fromRGB(255, 255, 255)
+            ToggleName.TextSize = 16.000
+            ToggleName.TextXAlignment = Enum.TextXAlignment.Left
 
-Tab5:Button("Armor",function(value)
-    getgenv().game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1178.1571044921875, 28.378028869628906, -497.09161376953125)
-end)
- 
-local Tab6 = Window:Tab("Keybind",false)
- 
-Tab6:Label("Keybind")
- 
-Tab6:Keybind("Toggle",Enum.KeyCode.B,function()
-    Library:Toggle()
-end)
+            ToggleNamePadding.Name = "ToggleNamePadding"
+            ToggleNamePadding.Parent = ToggleName
+            ToggleNamePadding.PaddingLeft = UDim.new(0, 10)
 
-Tab6:Button("Unload",function(Destroy)
-end)
- 
-local Tab7 = Window:Tab("Credits",false)
- 
-Tab7:Label("Skided by Anthony")
- 
-local Aiming = loadstring(game:HttpGet("https://pastebin.com/raw/vsVecTqs"))()
-Aiming.TeamCheck(false)
- 
-local Workspace = game:GetService("Workspace")
-local Players = game:GetService("Players")
-local RunService = game:GetService("RunService")
-local UserInputService = game:GetService("UserInputService")
- 
-local LocalPlayer = Players.LocalPlayer
-local Mouse = LocalPlayer:GetMouse()
-local CurrentCamera = Workspace.CurrentCamera
- 
-local DaHoodSettings = {
-    SilentAim = false,
-    AimLock = false,
-    Prediction = 0.157,
-    AimLockKeybind = Enum.KeyCode.E
-}
-getgenv().DaHoodSettings = DaHoodSettings
- 
-function Aiming.Check()
-    if not (Aiming.Enabled == true and Aiming.Selected ~= LocalPlayer and Aiming.SelectedPart ~= nil) then
-        return false
+            ToggleFrameCorner.Name = "ToggleFrameCorner"
+            ToggleFrameCorner.Parent = ToggleFrame
+
+            ToggleF.Name = "ToggleF"
+            ToggleF.Parent = ToggleFrame
+            ToggleF.BackgroundColor3 = Color3.fromRGB(55, 55, 75)
+            ToggleF.BackgroundTransparency = 0
+            ToggleF.BorderSizePixel = 0
+            ToggleF.Position = UDim2.new(0.867647052, 0, 0.142857149, 0)
+            ToggleF.Size = UDim2.new(0, 45, 0, 23)
+
+            ToggleCorner.CornerRadius = UDim.new(0, 25)
+            ToggleCorner.Name = "ToggleCorner"
+            ToggleCorner.Parent = ToggleF
+
+            ToggleButton.Name = "ToggleButton"
+            ToggleButton.Parent = ToggleF
+            ToggleButton.BackgroundColor3 = Color3.fromRGB(55, 55, 75)
+            ToggleButton.BackgroundTransparency = 1
+            ToggleButton.BorderSizePixel = 0
+            ToggleButton.Size = UDim2.new(0, 45, 0, 23)
+            ToggleButton.Font = Enum.Font.SourceSans
+            ToggleButton.Text = ""
+            ToggleButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+            ToggleButton.TextSize = 14.000
+
+            ToggleCircle.Name = "ToggleCircle"
+            ToggleCircle.Parent = ToggleF
+            ToggleCircle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            ToggleCircle.BackgroundTransparency = 1.000
+            ToggleCircle.Position = UDim2.new(0.093, 0,0.153, 0)
+            ToggleCircle.Size = UDim2.new(0, 17, 0, 17)
+            ToggleCircle.Image = "rbxassetid://3570695787"
+            ToggleCircle.ScaleType = Enum.ScaleType.Slice
+            ToggleCircle.SliceCenter = Rect.new(100, 100, 100, 100)
+            ToggleCircle.SliceScale = 0.120
+
+            ToggleButton.MouseButton1Down:Connect(function()
+                ToggleEnabled = not ToggleEnabled
+                if ToggleEnabled then 
+                    game:GetService("TweenService"):Create(ToggleF, TweenInfo.new(0.3), {BackgroundColor3 = Color3.fromRGB(55, 74, 251)}):Play() 
+                    game:GetService("TweenService"):Create(ToggleCircle, TweenInfo.new(0.3), {Position = UDim2.new(0.559, 0,0.153, 0)}):Play() 
+                else
+                    game:GetService("TweenService"):Create(ToggleF, TweenInfo.new(0.3), {BackgroundColor3 = Color3.fromRGB(55, 55, 75)}):Play() 
+                    game:GetService("TweenService"):Create(ToggleCircle, TweenInfo.new(0.3), {Position = UDim2.new(0.093, 0,0.153, 0)}):Play() 
+                end
+                pcall(Callback,ToggleEnabled)
+            end)
+        end
+
+        function Elements:Slider(Name,Min,Max,Callback)
+            local Name = Name or "Slider"
+            local Callback = Callback or function() end
+            local Max = Max or 500
+            local Min = Min or 16
+            local SliderFrame = Instance.new("Frame")
+            local SliderFrameCorner = Instance.new("UICorner")
+            local SliderButton = Instance.new("TextButton")
+            local SliderButtonCorner = Instance.new("UICorner")
+            local SliderTrail = Instance.new("Frame")
+            local SliderTrailCorner = Instance.new("UICorner")
+            local SliderName = Instance.new("TextLabel")
+            local SliderNamePadding = Instance.new("UIPadding")
+            local SliderValue = Instance.new("TextLabel")
+            local SliderValuePadding = Instance.new("UIPadding")
+
+            SliderFrame.Name = tostring(Name).."_Slider"
+            SliderFrame.Parent = Tab
+            SliderFrame.BackgroundColor3 = Color3.fromRGB(40, 42, 60)
+            SliderFrame.Size = UDim2.new(0, 408, 0, 50)
+
+            SliderFrameCorner.Name = "SliderFrameCorner"
+            SliderFrameCorner.Parent = SliderFrame
+
+            SliderButton.Name = "SliderButton"
+            SliderButton.Parent = SliderFrame
+            SliderButton.BackgroundColor3 = Color3.fromRGB(55, 55, 75)
+            SliderButton.BorderSizePixel = 0
+            SliderButton.Position = UDim2.new(0.0242369417, 0, 0.639999986, 0)
+            SliderButton.Size = UDim2.new(0, 389, 0, 10)
+            SliderButton.Font = Enum.Font.SourceSans
+            SliderButton.Text = ""
+            SliderButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+            SliderButton.TextSize = 14.000
+
+            SliderButtonCorner.Name = "SliderButtonCorner"
+            SliderButtonCorner.Parent = SliderButton
+
+            SliderTrail.Name = "SliderTrail"
+            SliderTrail.Parent = SliderButton
+            SliderTrail.BackgroundColor3 = Color3.fromRGB(55, 74, 251)
+            SliderTrail.Size = UDim2.new(0, 0, 0, 10)
+            SliderTrail.BorderSizePixel = 0
+
+            SliderTrailCorner.Name = "SliderTrailCorner"
+            SliderTrailCorner.Parent = SliderTrail
+
+            SliderName.Name = "SliderName"
+            SliderName.Parent = SliderFrame
+            SliderName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            SliderName.BackgroundTransparency = 1.000
+            SliderName.BorderSizePixel = 0
+            SliderName.Size = UDim2.new(0, 320, 0, 26)
+            SliderName.Font = Enum.Font.Gotham
+            SliderName.Text = Name
+            SliderName.TextColor3 = Color3.fromRGB(255, 255, 255)
+            SliderName.TextSize = 16.000
+            SliderName.TextXAlignment = Enum.TextXAlignment.Left
+
+            SliderNamePadding.Name = "SliderNamePadding"
+            SliderNamePadding.Parent = SliderName
+            SliderNamePadding.PaddingLeft = UDim.new(0, 10)
+
+            SliderValue.Name = "SliderValue"
+            SliderValue.Parent = SliderFrame
+            SliderValue.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            SliderValue.BackgroundTransparency = 1.000
+            SliderValue.BorderSizePixel = 0
+            SliderValue.TextTransparency = 1.000
+            SliderValue.Position = UDim2.new(0.802061796, 0, 0, 0)
+            SliderValue.Size = UDim2.new(0, 80, 0, 26)
+            SliderValue.Font = Enum.Font.Gotham
+            SliderValue.Text = "Value"
+            SliderValue.TextColor3 = Color3.fromRGB(255, 255, 255)
+            SliderValue.TextSize = 16.000
+            SliderValue.TextXAlignment = Enum.TextXAlignment.Right
+
+            SliderValuePadding.Name = "SliderValuePadding"
+            SliderValuePadding.Parent = SliderValue
+            SliderValuePadding.PaddingRight = UDim.new(0, 10)
+
+            local ms = game.Players.LocalPlayer:GetMouse()
+            local uis = game:GetService("UserInputService")
+            local Value
+            local mouse = game:GetService("Players").LocalPlayer:GetMouse();
+
+            SliderButton.MouseButton1Down:Connect(function()
+                game:GetService("TweenService"):Create(SliderValue, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+                    TextTransparency = 0
+                }):Play()
+                Value = math.floor((((tonumber(Max) - tonumber(Min)) / 389) * SliderTrail.AbsoluteSize.X) + tonumber(Min)) or 0
+                pcall(function()
+                    Callback(Value)
+                end)
+                SliderTrail:TweenSize(UDim2.new(0, math.clamp(mouse.X - SliderTrail.AbsolutePosition.X, 0, 389), 0, 10), "InOut", "Linear", 0.05, true)
+                moveconnection = mouse.Move:Connect(function()
+                    SliderValue.Text = Value
+                    Value = math.floor((((tonumber(Max) - tonumber(Min)) / 389) * SliderTrail.AbsoluteSize.X) + tonumber(Min))
+                    pcall(function()
+                        Callback(Value)
+                    end)
+                    SliderTrail:TweenSize(UDim2.new(0, math.clamp(mouse.X - SliderTrail.AbsolutePosition.X, 0, 389), 0, 10), "InOut", "Linear", 0.05, true)
+                end)
+                releaseconnection = uis.InputEnded:Connect(function(Mouse)
+                    if Mouse.UserInputType == Enum.UserInputType.MouseButton1 then
+                        Value = math.floor((((tonumber(Max) - tonumber(Min)) / 389) * SliderTrail.AbsoluteSize.X) + tonumber(Min))
+                        pcall(function()
+                            Callback(Value)
+                        end)
+                        SliderValue.Text = Value
+                        game:GetService("TweenService"):Create(SliderValue, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+                            TextTransparency = 1
+                        }):Play()
+                        SliderTrail:TweenSize(UDim2.new(0, math.clamp(mouse.X - SliderTrail.AbsolutePosition.X, 0, 389), 0, 10), "InOut", "Linear", 0.05, true)
+                        moveconnection:Disconnect()
+                        releaseconnection:Disconnect()
+                    end
+                end)
+            end)
+        end
+
+        function Elements:Textbox(Name,Default,Callback)
+            local Name = Name or "Textbox"
+            local Default = Default or ""
+            local Callback = Callback or function() end
+            local TextboxFrame = Instance.new("Frame")
+            local TextboxFrameCorner = Instance.new("UICorner")
+            local TextboxName = Instance.new("TextLabel")
+            local TextboxNamePadding = Instance.new("UIPadding")
+            local Textbox = Instance.new("TextBox")
+            local TextboxCorner = Instance.new("UICorner")
+
+            TextboxFrame.Name = tostring(Name).."_Textbox"
+            TextboxFrame.Parent = Tab
+            TextboxFrame.BackgroundColor3 = Color3.fromRGB(40, 42, 60)
+            TextboxFrame.Size = UDim2.new(0, 408, 0, 35)
+
+            TextboxFrameCorner.Name = "TextboxFrameCorner"
+            TextboxFrameCorner.Parent = TextboxFrame
+
+            TextboxName.Name = "TextboxName"
+            TextboxName.Parent = TextboxFrame
+            TextboxName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            TextboxName.BackgroundTransparency = 1.000
+            TextboxName.BorderSizePixel = 0
+            TextboxName.Size = UDim2.new(0, 235, 0, 35)
+            TextboxName.Font = Enum.Font.Gotham
+            TextboxName.Text = Name
+            TextboxName.TextColor3 = Color3.fromRGB(255, 255, 255)
+            TextboxName.TextSize = 16.000
+            TextboxName.TextXAlignment = Enum.TextXAlignment.Left
+
+            TextboxNamePadding.Name = "TextboxNamePadding"
+            TextboxNamePadding.Parent = TextboxName
+            TextboxNamePadding.PaddingLeft = UDim.new(0, 10)
+
+            Textbox.Name = "Textbox"
+            Textbox.Parent = TextboxFrame
+            Textbox.BackgroundColor3 = Color3.fromRGB(55, 55, 75)
+            Textbox.BorderSizePixel = 0
+            Textbox.Position = UDim2.new(0.610294104, 0, 0.171428576, 0)
+            Textbox.Size = UDim2.new(0, 150, 0, 23)
+            Textbox.Font = Enum.Font.Gotham
+            Textbox.PlaceholderColor3 = Color3.fromRGB(255, 255, 255)
+            Textbox.PlaceholderText = Default
+            Textbox.Text = ""
+            Textbox.TextColor3 = Color3.fromRGB(255, 255, 255)
+            Textbox.TextSize = 14.000
+
+            TextboxCorner.Name = "TextboxCorner"
+            TextboxCorner.Parent = Textbox
+
+            Textbox.Focused:Connect(function()
+                game:GetService("TweenService"):Create(Textbox, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+                    BackgroundColor3 = Color3.fromRGB(55, 74, 251)
+                }):Play()
+            end)
+
+            Textbox.FocusLost:Connect(function()
+                game:GetService("TweenService"):Create(Textbox, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+                    BackgroundColor3 = Color3.fromRGB(55, 55, 75)
+                }):Play()
+                Callback(Textbox.Text)
+            end)
+        end
+
+        function Elements:Keybind(Name,xKey,Callback)
+            local Name = Name or "Keybind"
+            local Callback = Callback or function() end
+            local Keyx = xKey.Name
+            local KeybindFrame = Instance.new("Frame")
+            local KeybindFrameCorner = Instance.new("UICorner")
+            local KeybindName = Instance.new("TextLabel")
+            local KeybindNamePadding = Instance.new("UIPadding")
+            local KeybindButton = Instance.new("TextButton")
+            local KeybindButtonCorner = Instance.new("UICorner")
+
+            KeybindFrame.Name = tostring(Name).."_Keybind"
+            KeybindFrame.Parent = Tab
+            KeybindFrame.BackgroundColor3 = Color3.fromRGB(40, 42, 60)
+            KeybindFrame.BorderSizePixel = 0
+            KeybindFrame.Size = UDim2.new(0, 408, 0, 35)
+            
+            KeybindFrameCorner.Name = "KeybindFrameCorner"
+            KeybindFrameCorner.Parent = KeybindFrame
+            
+            KeybindName.Name = "KeybindName"
+            KeybindName.Parent = KeybindFrame
+            KeybindName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            KeybindName.BackgroundTransparency = 1.000
+            KeybindName.BorderSizePixel = 0
+            KeybindName.Size = UDim2.new(0, 235, 0, 35)
+            KeybindName.Font = Enum.Font.Gotham
+            KeybindName.Text = Name
+            KeybindName.TextColor3 = Color3.fromRGB(255, 255, 255)
+            KeybindName.TextSize = 16.000
+            KeybindName.TextXAlignment = Enum.TextXAlignment.Left
+            
+            KeybindNamePadding.Name = "KeybindNamePadding"
+            KeybindNamePadding.Parent = KeybindName
+            KeybindNamePadding.PaddingLeft = UDim.new(0, 10)
+            
+            KeybindButton.Name = "KeybindButton"
+            KeybindButton.Parent = KeybindFrame
+            KeybindButton.BackgroundColor3 = Color3.fromRGB(55, 55, 75)
+            KeybindButton.Position = UDim2.new(0.610294104, 0, 0.171428576, 0)
+            KeybindButton.Size = UDim2.new(0, 150, 0, 23)
+            KeybindButton.Font = Enum.Font.Gotham
+            KeybindButton.Text = Keyx
+            KeybindButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+            KeybindButton.TextSize = 14.000
+            KeybindButton.ZIndex = 2
+            
+            KeybindButtonCorner.Name = "KeybindButtonCorner"
+            KeybindButtonCorner.Parent = KeybindButton
+
+            KeybindButton.MouseButton1Click:connect(function() 
+                game.TweenService:Create(KeybindButton, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+                    BackgroundColor3 = Color3.fromRGB(55, 74, 251)
+                }):Play()
+                KeybindButton.Text = ". . ."
+                local v1, v2 = game:GetService('UserInputService').InputBegan:wait();
+                if v1.KeyCode.Name ~= "Unknown" then
+                    game.TweenService:Create(KeybindButton, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+                        BackgroundColor3 = Color3.fromRGB(55, 55, 75)
+                    }):Play()
+                    KeybindButton.Text = v1.KeyCode.Name
+                    Keyx = v1.KeyCode.Name;
+                end
+            end)
+    
+            game:GetService("UserInputService").InputBegan:connect(function(a, gp) 
+                if not gp then 
+                    if a.KeyCode.Name == Keyx then 
+                        Callback()
+                    end
+                end
+            end)
+        end
+
+        function Elements:Dropdown(Name,Listx,Callback)
+            local Name = Name or "Dropdown"
+            local DropdownFunction = {}
+            local Callback = Callback or function() end
+            local DropSize = 35
+            local opened = false 
+
+            local DropdownFrame = Instance.new("Frame")
+            local DropdownFrameCorner = Instance.new("UICorner")
+            local DropdownName = Instance.new("TextLabel")
+            local DropdownNamePadding = Instance.new("UIPadding")
+            local DropdownIcon = Instance.new("ImageButton")
+            local DropdownButton = Instance.new("TextButton")
+            local DropList = Instance.new("Frame")
+            local DropListLayout = Instance.new("UIListLayout")
+
+            DropdownFrame.Name = tostring(Name).."_Dropdown"
+            DropdownFrame.Parent = Tab
+            DropdownFrame.BackgroundColor3 = Color3.fromRGB(40, 42, 60)
+            DropdownFrame.BorderSizePixel = 0
+            DropdownFrame.Size = UDim2.new(0, 408, 0, 35)
+
+            DropdownFrameCorner.Name = "DropdownFrameCorner"
+            DropdownFrameCorner.Parent = DropdownFrame
+
+            DropdownName.Name = "DropdownName"
+            DropdownName.Parent = DropdownFrame
+            DropdownName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            DropdownName.BackgroundTransparency = 1.000
+            DropdownName.BorderSizePixel = 0
+            DropdownName.Size = UDim2.new(0, 358, 0, 35)
+            DropdownName.Font = Enum.Font.Gotham
+            DropdownName.Text = Name
+            DropdownName.TextColor3 = Color3.fromRGB(255, 255, 255)
+            DropdownName.TextSize = 16.000
+            DropdownName.TextXAlignment = Enum.TextXAlignment.Left
+
+            DropdownNamePadding.Name = "DropdownNamePadding"
+            DropdownNamePadding.Parent = DropdownName
+            DropdownNamePadding.PaddingLeft = UDim.new(0, 10)
+
+            DropdownIcon.Name = "DropdownIcon"
+            DropdownIcon.Parent = DropdownFrame
+            DropdownIcon.BackgroundTransparency = 1.000
+            DropdownIcon.Position = UDim2.new(0.914644599, 0, 0.140659884, 0)
+            DropdownIcon.Size = UDim2.new(0, 25, 0, 25)
+            DropdownIcon.ZIndex = 2
+            DropdownIcon.Image = "rbxassetid://3926305904"
+            DropdownIcon.ImageRectOffset = Vector2.new(604, 684)
+            DropdownIcon.ImageRectSize = Vector2.new(36, 36)
+
+            DropdownButton.Name = "DropdownButton"
+            DropdownButton.Parent = DropdownFrame
+            DropdownButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            DropdownButton.BackgroundTransparency = 1.000
+            DropdownButton.BorderSizePixel = 0
+            DropdownButton.Size = UDim2.new(0, 408, 0, 35)
+            DropdownButton.Font = Enum.Font.SourceSans
+            DropdownButton.Text = ""
+            DropdownButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+            DropdownButton.TextSize = 14.000
+
+            DropList.Name = "DropList"
+            DropList.Parent = DropdownFrame
+            DropList.BackgroundColor3 = Color3.fromRGB(40, 42, 60)
+            DropList.BackgroundTransparency = 1.000
+            DropList.BorderSizePixel = 0
+            DropList.ClipsDescendants = true
+            DropList.Size = UDim2.new(0, 408, 0, 35)
+            DropList.ZIndex = 100
+            DropList.Position = UDim2.new(0, 0, 1.14285719, 0)
+            DropList.Visible = false
+
+            DropListLayout.Name = "DropListLayout"
+            DropListLayout.Parent = DropList
+            DropListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+            DropListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+            DropListLayout.Padding = UDim.new(0, 3)
+
+            DropListLayout.Changed:Connect(function()
+                Tab.CanvasSize = UDim2.new(0, 0, 0, DropListLayout.AbsoluteContentSize.Y)
+            end)  
+
+            DropdownButton.MouseEnter:Connect(function()
+                game:GetService("TweenService"):Create(DropdownFrame, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+                    BackgroundColor3 = Color3.fromRGB(48, 51, 70)
+                }):Play()
+            end)
+            DropdownButton.MouseLeave:Connect(function()
+                game:GetService("TweenService"):Create(DropdownFrame, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+                    BackgroundColor3 = Color3.fromRGB(40, 42, 60)
+                }):Play()
+            end)
+
+            local function DropElements(x)
+                for i,v in pairs(Tab:GetChildren()) do 
+                    if v:IsA("Frame") and v ~= DropdownFrame then 
+                        v.Visible = x
+                    end
+                end
+            end
+
+            DropdownButton.MouseButton1Down:Connect(function()
+                if opened then 
+                    Size()
+                    opened = false 
+                    DropList:TweenSize(UDim2.new(0, 408, 0, 35), "InOut", "Linear", 0.1)
+                    wait(0.1)
+                    game:GetService("TweenService"):Create(DropdownIcon, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+                        ImageColor3 = Color3.fromRGB(255,255,255)
+                    }):Play()
+                    DropList.Visible = false
+                    Size()
+                else 
+                    opened = true 
+                    DropList.Visible = true
+                    DropList:TweenSize(UDim2.new(0, 408, 0, DropListLayout.AbsoluteContentSize.Y), "InOut", "Linear", 0.1)
+                    Tab.CanvasSize = UDim2.new(0,0,0,DropListLayout.AbsoluteContentSize.Y + 100)
+                    wait(0.1)
+                    game:GetService("TweenService"):Create(DropdownIcon, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+                        ImageColor3 = Color3.fromRGB(55, 74, 251)
+                    }):Play()
+                    Tab.CanvasSize = UDim2.new(0,0,0,DropListLayout.AbsoluteContentSize.Y + 100)
+                end 
+            end)  
+
+            for i,v in pairs(Listx) do 
+                local Option = Instance.new("TextButton")
+                local OptionCorner = Instance.new("UICorner")
+                
+                Option.Name = tostring(v).."_Option"
+                Option.Parent = DropList
+                Option.BackgroundColor3 = Color3.fromRGB(40, 42, 60)
+                Option.Size = UDim2.new(0, 408, 0, 35)
+                Option.Font = Enum.Font.Gotham
+                Option.Text = v
+                Option.TextColor3 = Color3.fromRGB(255, 255, 255)
+                Option.TextSize = 16.000
+
+                OptionCorner.Name = "OptionCorner"
+                OptionCorner.Parent = Option
+
+                Option.MouseButton1Down:Connect(function()
+                    Callback(v)
+                    for a,b in pairs(DropList:GetChildren()) do 
+                        if b:IsA("TextButton") then 
+                            b.TextColor3 = Color3.fromRGB(255,255,255)
+                        end 
+                    end
+                    game:GetService("TweenService"):Create(Option, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+                        TextColor3 = Color3.fromRGB(55, 74, 251)
+                    }):Play()
+                    DropList:TweenSize(UDim2.new(0, 408, 0, 35), "InOut", "Linear", 0.1)
+                    game:GetService("TweenService"):Create(DropdownIcon, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+                        ImageColor3 = Color3.fromRGB(255,255,255)
+                    }):Play()
+                    wait(0.1)
+                    DropList.Visible = false
+                    opened = false
+                    DropElements(true)
+                    Size()
+                end)
+
+                Option.MouseEnter:Connect(function()
+                    game:GetService("TweenService"):Create(Option, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+                        BackgroundColor3 = Color3.fromRGB(48, 51, 70)
+                    }):Play()
+                end)
+                Option.MouseLeave:Connect(function()
+                    game:GetService("TweenService"):Create(Option, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+                        BackgroundColor3 = Color3.fromRGB(40, 42, 60)
+                    }):Play()
+                end)
+            end
+
+            function DropdownFunction:UpdateDropdown(List)
+                local List = List or {}
+                for i,v in pairs(List) do 
+                    local Option = Instance.new("TextButton")
+                    local OptionCorner = Instance.new("UICorner")
+    
+                    DropSize = DropSize + 35
+    
+                    Option.Name = tostring(v).."_Option"
+                    Option.Parent = DropList
+                    Option.BackgroundColor3 = Color3.fromRGB(40, 42, 60)
+                    Option.Size = UDim2.new(0, 408, 0, 35)
+                    Option.Font = Enum.Font.Gotham
+                    Option.Text = v
+                    Option.TextColor3 = Color3.fromRGB(255, 255, 255)
+                    Option.TextSize = 16.000
+    
+                    OptionCorner.Name = "OptionCorner"
+                    OptionCorner.Parent = Option
+    
+                    Option.MouseButton1Down:Connect(function()
+                        Callback(v)
+                        for a,b in pairs(DropList:GetChildren()) do 
+                            if b:IsA("TextButton") then 
+                                b.TextColor3 = Color3.fromRGB(255,255,255)
+                            end 
+                        end
+                        game:GetService("TweenService"):Create(Option, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+                            TextColor3 = Color3.fromRGB(55, 74, 251)
+                        }):Play()
+                        DropList:TweenSize(UDim2.new(0, 408, 0, 35), "InOut", "Linear", 0.1)
+                        game:GetService("TweenService"):Create(DropdownIcon, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+                            ImageColor3 = Color3.fromRGB(255,255,255)
+                        }):Play()
+                        wait(0.1)
+                        DropList.Visible = false
+                        opened = false
+                        DropElements(true)
+                        Size()
+                    end)
+    
+                    Option.MouseEnter:Connect(function()
+                        game:GetService("TweenService"):Create(Option, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+                            BackgroundColor3 = Color3.fromRGB(48, 51, 70)
+                        }):Play()
+                    end)
+                    Option.MouseLeave:Connect(function()
+                        game:GetService("TweenService"):Create(Option, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+                            BackgroundColor3 = Color3.fromRGB(40, 42, 60)
+                        }):Play()
+                    end)
+                end
+            end
+            return DropdownFunction
+        end
+        return Elements
     end
- 
-    local Character = Aiming.Character(Aiming.Selected)
-    local KOd = Character:WaitForChild("BodyEffects")["K.O"].Value
-    local Grabbed = Character:FindFirstChild("GRABBING_CONSTRAINT") ~= nil
- 
-    if (KOd or Grabbed) then
-        return false
-    end
- 
-    return true
+    return xTabs
 end
- 
-local __index
-__index = hookmetamethod(game, "__index", function(t, k)
-    if (t:IsA("Mouse") and (k == "Hit" or k == "Target") and Aiming.Check()) then
-        local SelectedPart = Aiming.SelectedPart
- 
-        if (DaHoodSettings.SilentAim and (k == "Hit" or k == "Target")) then
-            local Hit = SelectedPart.CFrame + (SelectedPart.Velocity * DaHoodSettings.Prediction)
- 
-            return (k == "Hit" and Hit or SelectedPart)
-        end
-    end
- 
-    return __index(t, k)
-end)
- 
-RunService:BindToRenderStep("AimLock", 0, function()
-    if (DaHoodSettings.AimLock and Aiming.Check() and UserInputService:IsKeyDown(DaHoodSettings.AimLockKeybind)) then
-        local SelectedPart = Aiming.SelectedPart
- 
-        local Hit = SelectedPart.CFrame + (SelectedPart.Velocity * DaHoodSettings.Prediction)
- 
-        CurrentCamera.CFrame = CFrame.lookAt(CurrentCamera.CFrame.Position, Hit.Position)
-    end
-    end)
+return Library
