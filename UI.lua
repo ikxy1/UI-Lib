@@ -18,17 +18,26 @@ local drawing = {} do
         end
     })
 
+local library = {
+    version = "2.0.2",
+    title = title or "xsx " .. tostring(math.random(1,366)),
+    fps = 0,
+    rank = "private"
+}
+
 coroutine.wrap(function()
     RunService.RenderStepped:Connect(function(v)
         library.fps =  math.round(1/v)
     end)
 end)()
 
+function library:RoundNumber(int, float)
+    return tonumber(string.format("%." .. (int or 0) .. "f", float))
+end
+
 function library:GetUsername()
     return Player.Name
 end
-
-
     -- taken from Nevermore Engine https://github.com/Quenty/NevermoreEngine/tree/main/src
 
     local HttpService = game:GetService("HttpService")
