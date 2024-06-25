@@ -911,7 +911,7 @@ local drawing = {} do
                         end
 
                         changechildrenpos(self, newpos)
-                    elseif shape ~= "Line" and shape ~= "Quad" and shape ~= "Circle" and shape ~= "Triangle" then
+                    elseif shape ~= "Line" and shape ~= "Quad" and shape ~= "Triangle" then
                         local newpos = mtobjs[v].Position + obj.Position
                         obj.Position = newpos
                         customproperties.AbsolutePosition = newpos
@@ -940,7 +940,7 @@ local drawing = {} do
         objchildren[mt] = {}
         objmtchildren[mt] = {}
 
-        if shape ~= "Line" and shape ~= "Quad" and shape ~= "Circle" and shape ~= "Triangle" then
+        if shape ~= "Line" and shape ~= "Quad" and shape ~= "Triangle" then
             mt.Position = Vector2.new(0, 0)
         end
 
