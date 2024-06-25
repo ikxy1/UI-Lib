@@ -1313,6 +1313,11 @@ function library:Close()
         self.holder.Visible = self.open
     end
 
+    if self.cursor then
+        self.cursor.Visible = self.open
+    end
+end
+
 function library:ChangeThemeOption(option, color)
     self.theme[option] = color
 
@@ -1423,6 +1428,10 @@ function library:Unload()
         self.holder:Remove()
     end
 
+    if self.cursor then
+        self.cursor:Remove()
+    end
+
     if self.watermarkobject then
        self.watermarkobject:Remove() 
     end
@@ -1434,6 +1443,16 @@ function library:Unload()
     table.clear(self.connections)
     table.clear(self.flags)
     table.clear(flags)
+end
+
+coroutine.wrap(function()
+    RunService.RenderStepped:Connect(function(v)
+        library.fps =  math.round(1/v)
+    end)
+end)()
+
+function library:GetUsername()
+    return Player.Name
 end
 
 local allowedcharacters = {}
@@ -2792,7 +2811,25 @@ function library:Load(options)
     if extension then
         self.extension = extension
     end
+
+    local cursor = utility.create("Triangle", {
+        Thickness = 6,
+        Color = Color3.fromRGB(255, 255, 255),
+        ZIndex = 1000
     })
+
+    self.cursor = cursor
+
+    services.InputService.MouseIconEnabled = false
+
+    utility.connect(services.RunService.RenderStepped, function()
+        if self.open then
+            local mousepos = services.InputService:GetMouseLocation()
+            cursor.PointA = mousepos
+            cursor.PointB = mousepos + Vector2.new(6, 12)
+            cursor.PointC = mousepos + Vector2.new(6, 12)
+        end
+    end)
 
     local holder = utility.create("Square", {
         Transparency = 0,
