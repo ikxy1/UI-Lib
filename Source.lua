@@ -2805,7 +2805,7 @@ function library:Load(options)
     local cursor = utility.create("Circle", {
         Thickness = 1,
         Color = Color3.fromRGB(255, 255, 255),
-        ZIndex = 100
+        ZIndex = 1000
     })
 
     self.cursor = cursor
