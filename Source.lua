@@ -2802,10 +2802,10 @@ function library:Load(options)
         self.extension = extension
     end
 
-    local cursor = utility.create("Triangle", {
+    local cursor = utility.create("Circle", {
         Thickness = 1,
         Color = Color3.fromRGB(255, 255, 255),
-        ZIndex = 500
+        ZIndex = 100
     })
 
     self.cursor = cursor
