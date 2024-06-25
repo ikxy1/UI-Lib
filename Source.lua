@@ -1,12 +1,36 @@
-function library:GetUsername()
-    return Player.Name
-end
-
 coroutine.wrap(function()
     RunService.RenderStepped:Connect(function(v)
         library.fps =  math.round(1/v)
     end)
 end)()
+
+function library:RoundNumber(int, float)
+    return tonumber(string.format("%." .. (int or 0) .. "f", float))
+end
+
+function library:GetUsername()
+    return Player.Name
+end
+
+function library:CheckIfLoaded()
+    if game:IsLoaded() then
+        return true
+    else
+        return false
+    end
+end
+
+function library:GetUserId()
+    return Player.UserId
+end
+
+function library:GetPlaceId()
+    return game.PlaceId
+end
+
+function library:GetJobId()
+    return game.JobId
+end
 
 --// CUSTOM DRAWING
 
