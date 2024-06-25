@@ -1,3 +1,6 @@
+local Workspace = game:GetService("Workspace")
+local Player = game:GetService("Players").LocalPlayer
+
 --// CUSTOM DRAWING
 
 local drawing = {} do
