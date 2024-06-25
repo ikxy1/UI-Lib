@@ -1313,11 +1313,6 @@ function library:Close()
         self.holder.Visible = self.open
     end
 
-    if self.cursor then
-        self.cursor.Visible = self.open
-    end
-end
-
 function library:ChangeThemeOption(option, color)
     self.theme[option] = color
 
@@ -1426,10 +1421,6 @@ function library:Unload()
 
     if self.holder then
         self.holder:Remove()
-    end
-
-    if self.cursor then
-        self.cursor:Remove()
     end
 
     if self.watermarkobject then
@@ -2801,14 +2792,7 @@ function library:Load(options)
     if extension then
         self.extension = extension
     end
-
-    local cursor = utility.create("Circle", {
-        Thickness = 1,
-        Color = Color3.fromRGB(255, 255, 255),
-        ZIndex = 1000
     })
-
-    self.cursor = cursor
 
     services.InputService.MouseIconEnabled = false
 
