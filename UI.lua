@@ -58,10 +58,6 @@ end
             and getmetatable(value) == Signal
     end
 
-    --[=[
-        Constructs a new signal.
-        @return Signal<T>
-    ]=]
     function Signal.new()
         local self = setmetatable({}, Signal)
 
